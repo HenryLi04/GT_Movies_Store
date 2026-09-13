@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Orders</h1>
+
+        <a
+            href="{% url 'movies.index' %}"
+            class="btn btn-outline-primary"
+        >
+            Continue Shopping
+        </a>
+    </div>
+
+    {% for order in template_data.orders %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Order #{{ order.id }}</strong>
+                    </div>
+
+                    <div class="col-md-4">
+                        {{ order.created_at|date:"M d, Y H:i" }}
+                    </div>
+
+                    <div class="col-md-4 text-md-end">
+                        <span class="badge bg-success">
+                            {{ order.get_status_display }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Movie</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for item in order.items.all %}
+                                <tr>
+                                    <td>{{ item.movie_name }}</td>
+                                    <td>${{ item.unit_price }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>${{ item.subtotal }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 class="text-end">
+                    Total: ${{ order.total }}
+                </h4>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-secondary">
+            You have not placed any orders yet.
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock content %}

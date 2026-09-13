@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto mb-3">
+            <h1>About</h1>
+
+            <hr>
+
+            <p>
+                At our Movie store, we offer a digital library containing movies from many different genres.
+            </p>
+
+            <p>
+                Users will be able to browse movies, search foor titles, write their reviews, add movies to a shoping cart, and purchase.
+            </p>
+
+            <div class="col-md-6 mx-auto mb-3 text-center">
+                <img
+                    src="{% static 'img/about.jpg' %}"
+                    class="img-fluid"
+                    alt="Movies Store About"
+                >
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

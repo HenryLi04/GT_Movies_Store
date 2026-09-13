@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="text-center mb-4">Log In</h1>
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            The username or password is incorrect.
+                        </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        {% if next %}
+                            <input
+                                type="hidden"
+                                name="next"
+                                value="{{ next }}"
+                            >
+                        {% endif %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100"
+                        >
+                            Log In
+                        </button>
+                    </form>
+
+                    <p class="text-center mt-3">
+                        Do not have an account?
+
+                        <a href="{% url 'accounts.signup' %}">
+                            Sign Up
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
